@@ -1,8 +1,6 @@
 //#include <AsgTools/MessageCheck.h> //include for r21
 #include <AsgTools/MessageCheckAsgTools.h> //include for r22
 #include <MyAnalysis/MyxAODAnalysis.h>
-#include "AthenaKernel/getMessageSvc.h"
-
 
 //xAODs include(s)
 #include <xAODEventInfo/EventInfo.h>
@@ -276,52 +274,53 @@ StatusCode MyxAODAnalysis :: execute ()
 
   ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-  // const xAOD::JetContainer* hltjets = nullptr;
-  // CHECK( evtStore()->retrieve( hltjets , "HLT_AntiKt4EMPFlowJets_subresjesgscIS_ftf_bJets" ) );
+  const xAOD::JetContainer* hltjets = nullptr;
+  CHECK( evtStore()->retrieve( hltjets , "HLT_AntiKt4EMPFlowJets_subresjesgscIS_ftf_bJets" ) );
+  SG::AuxElement::ConstAccessor<ElementLink<xAOD::BTaggingContainer>> acc_btag_link("btaggingLink");
 
-
-  // // SG::AuxElement::ConstAccessor<ElementLink<xAOD::BTaggingContainer>> acc_btag_link("btaggingLink");
-  // // SG::AuxElement::ConstAccessor<float> acc_reco_pb("DL1dv01_pb");
-  // // SG::AuxElement::ConstAccessor<float> acc_reco_pc("DL1dv01_pc");
-  // // SG::AuxElement::ConstAccessor<float> acc_reco_pu("DL1dv01_pu");
+  // // For L1 jets - not need for HLT analysis
+  // SG::AuxElement::ConstAccessor<float> acc_reco_pb("DL1dv01_pb");
+  // SG::AuxElement::ConstAccessor<float> acc_reco_pc("DL1dv01_pc");
+  // SG::AuxElement::ConstAccessor<float> acc_reco_pu("DL1dv01_pu");
  
-  // //Here we work with Online HLT Jets
-  // ATH_MSG_DEBUG ("HLT jets: " << hltjets->size() << "...");
-  // m_non_hltJet->clear();
-  // m_on_hltjet->clear();
-  // m_on_hltjetjvtlist->clear();
-  // m_on_hltjetdl1dblist->clear();
-  // m_on_hltjetdl1dclist->clear();
-  // m_on_hltjetdl1dulist->clear();
-  // m_on_hltjetGN1blist->clear();
-  // m_on_hltjetGN1clist->clear();
-  // m_on_hltjetGN1ulist->clear();
-  // int countonJet = 0;
+  //Here we work with Online HLT Jets
+  ATH_MSG_DEBUG ("HLT jets: " << hltjets->size() << "...");
+  m_non_hltJet->clear();
+  m_on_hltjet->clear();
+  m_on_hltjetjvtlist->clear();
+  m_on_hltjetdl1dblist->clear();
+  m_on_hltjetdl1dclist->clear();
+  m_on_hltjetdl1dulist->clear();
+  m_on_hltjetGN1blist->clear();
+  m_on_hltjetGN1clist->clear();
+  m_on_hltjetGN1ulist->clear();
+  int countonJet = 0;
 
-  // // // using DL1d20211216 from https://acode-browser1.usatlas.bnl.gov/lxr/source/athena/Trigger/TrigHypothesis/TrigBjetHypo/python/TrigBjetBtagHypoTool.py#0108
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_pb("DL1d20211216_pb");
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_pc("DL1d20211216_pc");
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_pu("DL1d20211216_pu"); 
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pb("GN120220813_pb");
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pc("GN120220813_pc");
-  // // SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pu("GN120220813_pu");
+  // using DL1d20211216 from https://acode-browser1.usatlas.bnl.gov/lxr/source/athena/Trigger/TrigHypothesis/TrigBjetHypo/python/TrigBjetBtagHypoTool.py#0108
+  SG::AuxElement::ConstAccessor<float> acc_hlt_pb("DL1d20211216_pb");
+  SG::AuxElement::ConstAccessor<float> acc_hlt_pc("DL1d20211216_pc");
+  SG::AuxElement::ConstAccessor<float> acc_hlt_pu("DL1d20211216_pu"); 
+  SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pb("GN120220813_pb");
+  SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pc("GN120220813_pc");
+  SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pu("GN120220813_pu");
 
-  // for (auto hltjet : *hltjets) {
-  //   if (hltjet->pt() * 0.001 < 10.) continue; 
+  for (auto hltjet : *hltjets) {
+    if (hltjet->pt() * 0.001 < 10.) continue; 
 
-  //   TLorentzVector onjetHLT; 
-  //   onjetHLT.SetPtEtaPhiM(hltjet->pt() * 0.001, hltjet->eta(), hltjet->phi(), 0);
-  //   m_on_hltjet->push_back(onjetHLT); //it contains the kinematic of the jet
-  //   m_on_hltjetjvtlist->push_back(hltjet->auxdata<float>("Jvt"));
-  //   // ElementLink<xAOD::BTaggingContainer> btag = acc_btag_link(*hltjet);
-  //   // m_on_hltjetdl1dblist->push_back(acc_hlt_pb(**btag));
-  //   // m_on_hltjetdl1dclist->push_back(acc_hlt_pc(**btag));
-  //   // m_on_hltjetdl1dulist->push_back(acc_hlt_pu(**btag));
-  //   // m_on_hltjetGN1blist->push_back(acc_hlt_gn1_pb(**btag));
-  //   // m_on_hltjetGN1clist->push_back(acc_hlt_gn1_pc(**btag));
-  //   // m_on_hltjetGN1ulist->push_back(acc_hlt_gn1_pu(**btag));
-  //   countonJet ++;
-  // }
+    TLorentzVector onjetHLT; 
+    onjetHLT.SetPtEtaPhiM(hltjet->pt() * 0.001, hltjet->eta(), hltjet->phi(), 0);
+    m_on_hltjet->push_back(onjetHLT); //it contains the kinematic of the jet
+    m_on_hltjetjvtlist->push_back(hltjet->auxdata<float>("Jvt"));
+    
+    ElementLink<xAOD::BTaggingContainer> btag = acc_btag_link(*hltjet);
+    m_on_hltjetdl1dblist->push_back(acc_hlt_pb(**btag));
+    m_on_hltjetdl1dclist->push_back(acc_hlt_pc(**btag));
+    m_on_hltjetdl1dulist->push_back(acc_hlt_pu(**btag));
+    m_on_hltjetGN1blist->push_back(acc_hlt_gn1_pb(**btag));
+    m_on_hltjetGN1clist->push_back(acc_hlt_gn1_pc(**btag));
+    m_on_hltjetGN1ulist->push_back(acc_hlt_gn1_pu(**btag));
+    countonJet ++;
+  }
 
   // //Outside Jet for loop do sorting (without truth matching)
   // TLorentzVector on_hltjet;
@@ -628,6 +627,8 @@ StatusCode MyxAODAnalysis :: execute ()
       }
     }
   }
+
+  
   // ANA_MSG_INFO("Online taus added. Now adding offline taus (requires truthmatching)");
 
   m_non_TrigTRM->push_back(countonTRM); 

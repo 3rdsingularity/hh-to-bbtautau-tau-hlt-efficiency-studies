@@ -35,7 +35,7 @@ type lsetup >/dev/null 2>/dev/null
 if [ $? -ne 0 ]; then
    source ${ATLAS_LOCAL_ROOT_BASE}/user/atlasLocalSetup.sh --quiet
 fi
-source $ATLAS_LOCAL_ROOT_BASE/packageSetups/localSetup.sh --quiet "cmake 3.21.3"
+source $ATLAS_LOCAL_ROOT_BASE/packageSetups/localSetup.sh --quiet "cmake 3.26.4"
 if [ -z "${AtlasSetup:+x}" ]; then
     export AtlasSetup="/cvmfs/atlas.cern.ch/repo/ATLASLocalRootBase/x86_64/AtlasSetup/V02-02-04/AtlasSetup"
     export AtlasSetupVersion="AtlasSetup-02-02-04"
@@ -44,23 +44,23 @@ export FRONTIER_SERVER="(serverurl=http://atlasfrontier-local.cern.ch:8000/atlr)
 export ATLAS_POOLCOND_PATH="/cvmfs/atlas-condb.cern.ch/repo/conditions"
 export ATLAS_DB_AREA="/cvmfs/atlas.cern.ch/repo/sw/database"
 export DBRELEASE_OVERRIDE="current"
-export AtlasVersion="22.0.101"
+export AtlasVersion="24.0.8"
 export AtlasProject="Athena"
-export AtlasBaseDir="/cvmfs/atlas.cern.ch/repo/sw/software/22.0"
-export ATLAS_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/software/22.0"
-export AtlasBuildBranch="22.0"
-export AtlasArea="/cvmfs/atlas.cern.ch/repo/sw/software/22.0/Athena/22.0.101"
+export AtlasBaseDir="/cvmfs/atlas.cern.ch/repo/sw/software/24.0"
+export ATLAS_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/software/24.0"
+export AtlasBuildBranch="24.0"
+export AtlasArea="/cvmfs/atlas.cern.ch/repo/sw/software/24.0/Athena/24.0.8"
 export AtlasReleaseType="stable"
-export AtlasBuildStamp="2022-11-01T2101"
-export SITEROOT="/cvmfs/atlas.cern.ch/repo/sw/software/22.0"
-export ATLAS_RELEASEDATA="/cvmfs/atlas.cern.ch/repo/sw/software/22.0/atlas/offline/ReleaseData"
-export LCG_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/software/22.0/sw/lcg/releases"
-export G4PATH="/cvmfs/atlas.cern.ch/repo/sw/software/22.0/Geant4"
-export TDAQ_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/tdaq/offline"
-source /cvmfs/atlas.cern.ch/repo/sw/software/22.0/Athena/22.0.101/InstallArea/x86_64-centos7-gcc11-opt/setup.sh
+export AtlasBuildStamp="2023-07-24T2101"
+export SITEROOT="/cvmfs/atlas.cern.ch/repo/sw/software/24.0"
+export ATLAS_RELEASEDATA="/cvmfs/atlas.cern.ch/repo/sw/software/24.0/atlas/offline/ReleaseData"
+export LCG_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/software/24.0/sw/lcg/releases"
+export G4PATH="/cvmfs/atlas.cern.ch/repo/sw/software/24.0/Geant4"
+export TDAQ_RELEASE_BASE="/cvmfs/atlas.cern.ch/repo/sw/software/24.0"
+source /cvmfs/atlas.cern.ch/repo/sw/software/24.0/Athena/24.0.8/InstallArea/x86_64-centos7-gcc11-opt/setup.sh
 asetup_status=$?
 if [ ${asetup_status} -ne 0 ]; then
-    \echo "AtlasSetup(ERROR): sourcing release setup script (/cvmfs/atlas.cern.ch/repo/sw/software/22.0/Athena/22.0.101/InstallArea/x86_64-centos7-gcc11-opt/setup.sh) failed"
+    \echo "AtlasSetup(ERROR): sourcing release setup script (/cvmfs/atlas.cern.ch/repo/sw/software/24.0/Athena/24.0.8/InstallArea/x86_64-centos7-gcc11-opt/setup.sh) failed"
 fi
 export TestArea="/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/build"
 alias_sys_exe emacs
@@ -75,9 +75,9 @@ fi
 export PATH="${ASETUP_SYSBIN}:${PATH}"
 
 #Release Summary as follows:
-#Release base=/cvmfs/atlas.cern.ch/repo/sw/software/22.0
+#Release base=/cvmfs/atlas.cern.ch/repo/sw/software/24.0
 #Release project=Athena
-#Release releaseNum=22.0.101
+#Release releaseNum=24.0.8
 #Release asconfig=x86_64-centos7-gcc11-opt
 
 # Execute user-specified epilog

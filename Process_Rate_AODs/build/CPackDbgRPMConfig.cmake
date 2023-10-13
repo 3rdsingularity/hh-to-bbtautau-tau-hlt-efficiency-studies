@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2020 CERN for the benefit of the ATLAS collaboration
+# Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration
 #
 # Configuration for building an RPM file out of the .dbg files produced during
 # a "RelWithDebInfo" build.
@@ -47,7 +47,13 @@ set( CPACK_RPM_PACKAGE_PROVIDES "/bin/sh" )
 set( CPACK_RPM_PACKAGE_ARCHITECTURE "noarch" )
 set( CPACK_RPM_PACKAGE_GROUP "ATLAS Software" )
 set( CPACK_RPM_PACKAGE_LICENSE "Simplified BSD" )
-set( CPACK_RPM_SPEC_MORE_DEFINE "%global __os_install_post %{nil}" )
+set( CPACK_RPM_SPEC_MORE_DEFINE "
+%global __os_install_post %{nil}
+%define _unpackaged_files_terminate_build 0
+%define _binaries_in_noarch_packages_terminate_build 0
+%define _source_payload w2.xzdio
+%define _binary_payload w2.xzdio
+%undefine __brp_mangle_shebangs" )
 
 # Make the RPM depend on the main (opt) RPM:
 set( CPACK_RPM_PACKAGE_AUTOREQ " no" )

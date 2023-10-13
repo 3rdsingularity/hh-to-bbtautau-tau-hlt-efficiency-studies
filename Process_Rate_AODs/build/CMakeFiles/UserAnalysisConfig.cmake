@@ -53,7 +53,7 @@ find_package_handle_standard_args( UserAnalysis
    VERSION_VAR UserAnalysis_VERSION )
 
 # The base projects that this project was built on top of:
-set( UserAnalysis_BASE_PROJECTS Athena;22.0.101 )
+set( UserAnalysis_BASE_PROJECTS Athena;24.0.8 )
 
 # The platform name used for the build.
 set( UserAnalysis_PLATFORM "x86_64-centos7-gcc11-opt" )

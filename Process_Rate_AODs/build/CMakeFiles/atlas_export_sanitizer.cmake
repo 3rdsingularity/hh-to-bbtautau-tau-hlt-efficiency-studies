@@ -1,4 +1,4 @@
-# Copyright (C) 2002-2022 CERN for the benefit of the ATLAS collaboration
+# Copyright (C) 2002-2023 CERN for the benefit of the ATLAS collaboration
 #
 # This script is used to tweak the exported file created by CMake for
 # describing the installed targets of a release, not to treat it as a
@@ -57,11 +57,11 @@ foreach( _element ${_targetsContent} )
    endif()
    # Make the directories pointing at AthenaExternals be relative paths:
    string( REPLACE
-      "/cvmfs/atlas.cern.ch/repo/sw/software/22.0/AthenaExternals/22.0.101/InstallArea/x86_64-centos7-gcc11-opt/"
+      "/cvmfs/atlas.cern.ch/repo/sw/software/24.0/AthenaExternals/24.0.8/InstallArea/x86_64-centos7-gcc11-opt/"
       "\${UserAnalysis_INSTALL_DIR}/../../../../AthenaExternals/\${AthenaExternals_VERSION}/InstallArea/\${AthenaExternals_PLATFORM}/"
       _newContent ${_newContent} )
    # Append it to the full string:
-   if( _outputContent )
+   if( NOT "${_outputContent}" STREQUAL "" )
       set( _outputContent "${_outputContent}\;${_newContent}" )
    else()
       set( _outputContent "${_newContent}" )

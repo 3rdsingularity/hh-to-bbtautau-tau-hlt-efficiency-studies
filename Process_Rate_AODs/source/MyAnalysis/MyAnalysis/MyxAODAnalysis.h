@@ -1,8 +1,8 @@
 #ifndef MyAnalysis_MyxAODAnalysis_H
 #define MyAnalysis_MyxAODAnalysis_H
 
-#include <AnaAlgorithm/AnaAlgorithm.h>
-#include <AsgTools/ToolHandle.h>
+#include <AnaAlgorithm/AnaAlgorithm.h> // Was there before
+#include <AsgTools/ToolHandle.h>  // Was there before
 
 //ROOT include(s)
 #include <TH1.h>
@@ -30,6 +30,7 @@
 #include "xAODBTagging/BTaggingContainer.h"
 #include "xAODBTagging/BTaggingUtilities.h"
 
+
 class MyxAODAnalysis : public EL::AnaAlgorithm
 {
 public:
@@ -46,6 +47,12 @@ private:
   ToolHandle< Trig::TrigDecisionTool > m_trigDecTool;
   ToolHandle< TauAnalysisTools::TauTruthMatchingTool > m_T2MT;
   
+  
+  // Flavor tagger
+  // asg::AnaToolHandle<IBTaggingSelectionTool> m_btag_tool_HLT{"BTaggingSelectionTool"};
+  // asg::AnaToolHandle<IBTaggingSelectionTool> m_btag_tool_offline{"BTaggingSelectionTool_offline"};
+
+
   unsigned long long m_eventNumber = 0; // Event number
   
   // L1 triggers

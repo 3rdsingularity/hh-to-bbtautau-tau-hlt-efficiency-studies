@@ -1,5 +1,5 @@
-# testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/data22_13p6TeV(DeV)/AOD.33426411._000001.pool.root.1'
-testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/valid1.600023.PhH7EG_PDF4LHC15_HHbbtautauHadHad_cHHH01d0.merge.AOD.e7954_e7400_s3775_r13561_r13491/AOD.28764607._000001.pool.root.1'
+testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/data22_13p6TeV(DeV)/AOD.33426411._000001.pool.root.1'
+# testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/valid1.600023.PhH7EG_PDF4LHC15_HHbbtautauHadHad_cHHH01d0.merge.AOD.e7954_e7400_s3775_r13561_r13491/AOD.28764607._000001.pool.root.1'
 # testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/data22_13p6TeV/AOD.35016412._001488.pool.root.1'
 # testFile = '/afs/cern.ch/user/a/asudhaka/public/bbtautau_trig_analysis/AOD.33426411._000001.pool.root.1'
 # testFile = '/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/valid1.600023.PhH7EG_PDF4LHC15_HHbbtautauHadHad_cHHH01d0.merge.AOD.e7954_e7400_s3775_r13561_r13491/AOD.28764607._000001.pool.root.1'

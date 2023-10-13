@@ -11,9 +11,8 @@ set(CMAKE_DEPENDS_DEPENDENCY_FILES
   "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/source/MyAnalysis/src/components/MyAnalysis_entries.cxx" "MyAnalysis/CMakeFiles/MyAnalysis.dir/src/components/MyAnalysis_entries.cxx.o" "gcc" "MyAnalysis/CMakeFiles/MyAnalysis.dir/src/components/MyAnalysis_entries.cxx.o.d"
   )
 
-# Targets to which this target links.
-set(CMAKE_TARGET_LINKED_INFO_FILES
-  "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/build/MyAnalysis/CMakeFiles/MyAnalysisLib.dir/DependInfo.cmake"
+# Targets to which this target links which contain Fortran sources.
+set(CMAKE_Fortran_TARGET_LINKED_INFO_FILES
   )
 
 # Fortran module output directory.

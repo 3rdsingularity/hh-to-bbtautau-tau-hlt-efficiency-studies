@@ -14,7 +14,7 @@ atlas_add_library (MyAnalysisLib
   MyAnalysis/*.h Root/*.cxx ${MyAnalysisCintDict}
   PUBLIC_HEADERS MyAnalysis
   LINK_LIBRARIES  ${ROOT_LIBRARIES} AnaAlgorithmLib xAODEventInfo xAODTau xAODMuon xAODBase xAODTrigger
-  AsgTools xAODRootAccess TrigConfxAODLib TrigDecisionToolLib TauAnalysisToolsLib)
+  AsgTools xAODRootAccess TrigConfxAODLib TrigDecisionToolLib TauAnalysisToolsLib xAODJet xAODBTagging )
 
 if (XAOD_STANDALONE)
  # Add the dictionary (for AnalysisBase only):
