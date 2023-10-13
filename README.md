@@ -1,7 +1,7 @@
 # HLT_bbtautau_trigger_emulation
 
 ## Description
-This repository is created for the trigger optimization studies of the $ hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^- $ analysis. For optimizing a trigger chain, it is important to look at its efficiency and the rates. This repository can be used to emulate various trigger chain configurations and determine the corresponding efficiency and rates.
+This repository is created for the trigger optimization studies of the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis. For optimizing a trigger chain, it is important to look at its efficiency and the rates. This repository can be used to emulate various trigger chain configurations and determine the corresponding efficiency and rates.
 
 As of now, all the important HLT parameters of the di tau trigger - L1Topo and 4J12, i.e 
 
@@ -15,7 +15,7 @@ can be emulated without any issues.
 
  For efficiency emulation, the Monte Carlo sample of the signal sammple is used. For rates emulation, an [Enhanced Bias Samples](https://twiki.cern.ch/twiki/bin/view/Atlas/EnhancedBiasData) and their weights are required.  
 
- - For efficiency emulation of any trigger chain in the $ hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^- $ analysis, the following sample was used at the time of creating this repository
+ - For efficiency emulation of any trigger chain in the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis, the following sample was used at the time of creating this repository
 ```mc23_13p6TeV.601477.PhPy8EG_HHbbttHadHad_cHHH01d0.recon.AOD.e8514_s4111_r14668/ ```
 
 - For the di tau trigger rate emulation, the following Enhanced Bias sample was used at the time of creating this repository ([ATR-27517](https://its.cern.ch/jira/browse/ATR-27517))
