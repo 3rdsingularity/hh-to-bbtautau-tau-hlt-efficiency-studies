@@ -1,0 +1,11 @@
+[release_metadata]
+release:0.0.0
+nightly name:master
+project name:UserAnalysis
+nightly release:032bcf9
+date:2023-10-12T1345
+compiler:GNU-11.2.0
+cuda:-
+cxxpath:/cvmfs/sft.cern.ch/lcg/releases/gcc/11.2.0-8a51a/x86_64-centos7/bin/g++
+cudapath:
+cmake:3.21.3

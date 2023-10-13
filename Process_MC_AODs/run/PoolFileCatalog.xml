@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no" ?>
+<!-- Edited By POOL -->
+<!DOCTYPE POOLFILECATALOG SYSTEM "InMemory">
+<POOLFILECATALOG>
+  <File ID="A6BEE230-3C5B-954F-908B-68FE370A13B0">
+    <physical>
+      <pfn filetype="ROOT_All" name="/eos/user/s/shhayash/HH4b/HH4b-RUN3-TRIGGER/AOD/valid1.600023.PhH7EG_PDF4LHC15_HHbbtautauHadHad_cHHH01d0.merge.AOD.e7954_e7400_s3775_r13561_r13491_tid28764607_00/AOD.28764607._000001.pool.root.1"/>
+      <pfn filetype="ROOT_All" name="/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/valid1.600023.PhH7EG_PDF4LHC15_HHbbtautauHadHad_cHHH01d0.merge.AOD.e7954_e7400_s3775_r13561_r13491/AOD.28764607._000001.pool.root.1"/></physical>
+    <logical/>
+  </File>
+
+  <File ID="563D8E06-6860-FD41-A3AA-6C21C7B28336">
+    <physical>
+      <pfn filetype="ROOT_All" name="/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/mc23_13p6TeV.601477.PhPy8EG_HHbbttHadHad_cHHH01d0.recon.AOD.e8514_e8528_s4111_s4114_r14668/AOD.33514441._000001.pool.root.1"/>
+    </physical>
+    <logical/>
+  </File>
+
+  <File ID="86D01524-5096-7543-8E1B-EA1BF5844941">
+    <physical>
+      <pfn filetype="ROOT_All" name="/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/mc23_13p6TeV.601477.PhPy8EG_HHbbttHadHad_cHHH01d0.recon.AOD.e8514_e8528_s4111_s4114_r14668/AOD.33514441._000002.pool.root.1"/>
+    </physical>
+    <logical/>
+  </File>
+
+</POOLFILECATALOG>

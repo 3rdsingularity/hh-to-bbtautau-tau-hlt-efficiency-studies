@@ -1,0 +1,29 @@
+{
+	"sources" : 
+	[
+		{
+			"file" : "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/source/MyAnalysis/MyAnalysis/MyxAODAnalysis.h"
+		},
+		{
+			"file" : "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/source/MyAnalysis/Root/MyxAODAnalysis.cxx"
+		},
+		{
+			"file" : "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/build/MyAnalysis/CMakeFiles/MyAnalysisLibCintDict.cxx",
+			"labels" : 
+			[
+				"MyAnalysis"
+			]
+		},
+		{
+			"file" : "/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/build/MyAnalysis/CMakeFiles/MyAnalysisLibCintDict.cxx.rule"
+		}
+	],
+	"target" : 
+	{
+		"labels" : 
+		[
+			"MyAnalysis"
+		],
+		"name" : "MyAnalysisLib"
+	}
+}

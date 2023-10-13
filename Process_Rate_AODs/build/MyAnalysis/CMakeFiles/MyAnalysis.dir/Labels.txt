@@ -1,0 +1,4 @@
+# Target labels
+ MyAnalysis
+# Source files and their labels
+/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_Rate_AODs/source/MyAnalysis/src/components/MyAnalysis_entries.cxx
