@@ -1,2 +1,0 @@
-# Package(s) built in UserAnalysis - 0.0.0
-MyAnalysis
