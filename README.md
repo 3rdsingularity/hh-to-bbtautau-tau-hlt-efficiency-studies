@@ -30,7 +30,12 @@ can be emulated without any issues.
 ## Process the AODs and derive NTuples
 
 Since AODs are difficult to handle, they are processed to simple NTuples using the scripts in 
-```hlt_bbtautau_trigger_emulation/Process_EB_AODs``` and ```/afs/cern.ch/user/a/asudhaka/hlt_bbtautau_trigger_emulation/Process_MC_AODs```. These are AOD processer inspired from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies)
-I theory the same script should be able to process both signal and EB samples. But since I encountered some issues with using the script for MC NTupler to process EB AODs, two separate scripts are present temporarily to process MC and ED AODs.
+```hlt_bbtautau_trigger_emulation/Process_EB_AODs``` and ```hlt_bbtautau_trigger_emulation/Process_MC_AODs```. These are AOD processers inspired from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies)
+In theory, the same script should be able to process both signal and EB samples. But since I encountered some issues with using the script for MC NTupler to process EB AODs, two separate scripts are present temporarily to process MC and ED AODs.
+
+
+## Emulating the Rate
+Use the ```hlt_bbtautau_trigger_emulation/di_tau_trigger/Rates_analysis``` and ```hlt_bbtautau_trigger_emulation/b+tau_trigger/Rates_analysis``` for emulating various triggers and determining its rates. The rates are calulated using the information provided in the [twiki page](https://studip-ecampus.uni-goettingen.de/dispatch.php/course/details?sem_id=ca1ca2a43d94d8262654e401f8c61553&again=yes) written by Heather Russell.  
+
 
 ## Project status

@@ -1,12 +1,6 @@
 # bbtautautriggeranalysis
 
 ## Setup 
-----
-### Clone repository in your directory 
-```
-git clone --branch HLT_studies ssh://git@gitlab.cern.ch:7999/jguhit/bbtautautriggeranalysis.git
-
-```
 
 ### Create directories
 ```
@@ -31,6 +25,7 @@ source gridrun.sh
 ```
 
 ### Extracting Tau Info
+
 For extracting **passed** tau information, in `source/MyAnalysis/Root/MyxAODAnalysis.cxx`:
 ```
 auto vec = m_trigDecTool->features<xAOD::TauJetContainer>(trigname, TrigDefs::Physics ,tauContainerName);
