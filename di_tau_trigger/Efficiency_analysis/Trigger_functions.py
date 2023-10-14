@@ -120,18 +120,6 @@ def pt_cond(event,index,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'): #"index" i
         return True
     return False
 
-
-# def pt_cond2(event,index,i,pt0,pt1): #"index" is index of the tau of concern, i is the index of the tau pair
-#     ''' This returns True or False for a particular hlteta tau if it can be paired up 
-#     with the second tau and pass the pt cut'''
-#     # Check if both the taus are above pt2 and check if atleast one of them is above pt2
-#     condition1 = df['TrigMatched_Taus_HLTetafl'][event][index].Pt()>pt1
-#     condition1 &= df['TrigMatched_Taus_HLTetafl'][event][i].Pt()>pt1
-#     condition1 &= (df['TrigMatched_Taus_HLTetafl'][event][index].Pt()>pt0 or df['TrigMatched_Taus_HLTetafl'][event][i].Pt()>pt0)
-#     if i!=index and condition1:
-#         return True
-#     return False
-
 #########################################################################################################################################################    
 
 def mRNN_L1Topo_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06):
