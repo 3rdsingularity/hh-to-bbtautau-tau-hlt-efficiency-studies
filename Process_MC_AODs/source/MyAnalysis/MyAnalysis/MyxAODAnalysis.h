@@ -59,6 +59,8 @@ private:
   //L1 
   bool L1_trig_pt; 
   bool L1_trig_eta;
+  bool L1_4b_3j1j;  
+  bool L1_trig_pt8;
 
   //HLT triggers
   bool HLT_trig_ptr22;

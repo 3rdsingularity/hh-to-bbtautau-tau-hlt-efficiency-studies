@@ -118,6 +118,9 @@ StatusCode MyxAODAnalysis :: initialize ()
 
   mytree->Branch("L1_J25", &L1_trig_pt);
   mytree->Branch("L1_ETA25", &L1_trig_eta);
+  mytree->Branch("L1_4b_3j1j", &L1_4b_3j1j);
+  mytree->Branch("L1_TAU8", &L1_trig_pt8);
+
   mytree->Branch("HLT_J25_r22", &HLT_trig_ptr22);
   mytree->Branch("HLT_ETA25_r22", &HLT_trig_etar22);
   mytree->Branch("HLT_J25_Tau0", &HLT_trig_ptTau0);
@@ -302,6 +305,8 @@ StatusCode MyxAODAnalysis :: execute ()
   //L1 
   L1_trig_pt = false; 
   L1_trig_eta = false; 
+  L1_trig_pt8 = false;
+  L1_4b_3j1j = false;  
 
   //HLT
   HLT_trig_ptr22 = false;
@@ -312,6 +317,8 @@ StatusCode MyxAODAnalysis :: execute ()
   // L1 Trigger
   const std::string trigL1pT="L1_DR-TAU20ITAU12I-J25";
   const std::string trigL1eta="L1_TAU20IM_2TAU12IM_4J12.0ETA25";
+  const std::string trigL1pT8="L1_TAU8";
+  const std::string trigL1_4b_3j1j="L1_J45p0ETA21_3J15p0ETA25"; //b+3j
 
   // HLT Trigger
   const std::string trigHLTptr22="HLT_tau35_mediumRNN_tracktwoMVA_tau25_mediumRNN_tracktwoMVA_03dRAB30_L1DR-TAU20ITAU12I-J25";
@@ -323,6 +330,8 @@ StatusCode MyxAODAnalysis :: execute ()
   // L1 Trigger Decision
   auto cgL1pT = m_trigDecTool->isPassed(trigL1pT);
   auto cgL1eta = m_trigDecTool->isPassed(trigL1eta);
+  auto cgL1pT8 = m_trigDecTool->isPassed(trigL1pT8);
+  auto cgL1_4b_3j1j = m_trigDecTool->isPassed(trigL1_4b_3j1j);
 
   // HLT Trigger Decision
   auto cgHLTpT = m_trigDecTool->isPassed(trigHLTptr22);
@@ -337,11 +346,26 @@ StatusCode MyxAODAnalysis :: execute ()
   } else {
     L1_trig_pt = true;
   }
+
   if (!cgL1eta) {
     L1_trig_eta = false;
   } else {
     L1_trig_eta = true; 
   }
+
+  if (!cgL1pT8) {
+    L1_trig_pt8 = false;  
+  } else {    
+    L1_trig_pt8 = true;  
+  }
+
+  if (!cgL1_4b_3j1j){    
+    L1_4b_3j1j = false;   
+  } else {    
+    L1_4b_3j1j = true;  
+  }
+
+
 
 
   if (!cgHLTpT) {
