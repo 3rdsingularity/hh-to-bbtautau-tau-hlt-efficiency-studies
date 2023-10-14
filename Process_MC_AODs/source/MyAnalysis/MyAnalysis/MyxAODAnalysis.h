@@ -23,8 +23,13 @@
 #include "TrigDecisionTool/ConfigurationAccess.h"
 #include "TrigDecisionTool/Combination.h"
 #include "TrigDecisionTool/TDTUtilities.h"
-
 #include "TauAnalysisTools/TauTruthMatchingTool.h"
+
+//#include "FTagAnalysisInterfaces/IBTaggingSelectionTool.h"
+#include "xAODBTagging/BTagging.h"
+#include "xAODBTagging/BTaggingContainer.h"
+#include "xAODBTagging/BTaggingUtilities.h"
+
 
 class MyxAODAnalysis : public EL::AnaAlgorithm
 {
@@ -41,12 +46,16 @@ private:
   // Tool Configuration
   ToolHandle< Trig::TrigDecisionTool > m_trigDecTool;
   ToolHandle< TauAnalysisTools::TauTruthMatchingTool > m_T2MT;
+
+  // Flavor tagger
+  //asg::AnaToolHandle<IBTaggingSelectionTool> m_btag_tool_HLT{"BTaggingSelectionTool"};
+  // asg::AnaToolHandle<IBTaggingSelectionTool> m_btag_tool_offline{"BTaggingSelectionTool_offline"};
+
   /*
   unsigned long long m_eventNumber = 0; // Event number
   std::vector<float> *m_actualBC = nullptr; 
   std::vector<float> *m_aveBC =  nullptr;
   */
-  
   //L1 
   bool L1_trig_pt; 
   bool L1_trig_eta;
@@ -59,6 +68,17 @@ private:
   bool HLT_trig_ptidperf;
   bool HLT_trig_etaidperf;
   
+  //Online HLT Jets
+  std::vector<int> *m_non_hltJet = nullptr;
+  std::vector<TLorentzVector> *m_on_hltjet = nullptr; //HLT_xAOD__JetContainer
+  std::vector<float> *m_on_hltjetjvtlist = nullptr;
+  std::vector<float> *m_on_hltjetdl1dblist = nullptr;
+  std::vector<float> *m_on_hltjetdl1dclist = nullptr;
+  std::vector<float> *m_on_hltjetdl1dulist = nullptr;
+  std::vector<float> *m_on_hltjetGN1blist = nullptr;
+  std::vector<float> *m_on_hltjetGN1clist = nullptr;
+  std::vector<float> *m_on_hltjetGN1ulist = nullptr;
+
   //Matched
   std::vector<int> *m_noff_mtaus = nullptr; 
   std::vector<TLorentzVector> *m_off_mtaus = nullptr;

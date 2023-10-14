@@ -9,7 +9,7 @@
 #include "xAODBase/IParticleContainer.h"
 #include "xAODTrigger/TrigPassBits.h" 
 #include "TrigConfHLTData/HLTTriggerElement.h"
-
+#include <xAODJet/JetContainer.h>
 #include "TrigDecisionTool/TrigDecisionTool.h"
 #include "TrigDecisionTool/ChainGroup.h"
 #include "TrigDecisionTool/FeatureContainer.h"
@@ -41,6 +41,16 @@ MyxAODAnalysis :: ~MyxAODAnalysis (){
   //delete m_actualBC;
   //delete m_aveBC;
   
+  delete m_non_hltJet;
+  delete m_on_hltjet;
+  delete m_on_hltjetjvtlist;
+  delete m_on_hltjetdl1dblist;
+  delete m_on_hltjetdl1dclist;
+  delete m_on_hltjetdl1dulist;
+  delete m_on_hltjetGN1blist;
+  delete m_on_hltjetGN1clist;
+  delete m_on_hltjetGN1ulist;
+
   delete m_noff_mtaus;
   delete m_off_mtaus;
   delete m_off_mtauIDvl;
@@ -115,7 +125,24 @@ StatusCode MyxAODAnalysis :: initialize ()
   mytree->Branch("HLT_J25_idperf", &HLT_trig_ptidperf);
   mytree->Branch("HLT_4J12_idperf", &HLT_trig_etaidperf);
   
-
+  m_non_hltJet = new std::vector<int>();
+  mytree->Branch("NHLTJets", &m_non_hltJet);
+  m_on_hltjet = new std::vector<TLorentzVector>();
+  mytree->Branch ("HLTJets", &m_on_hltjet);
+  m_on_hltjetjvtlist = new std::vector<float>();
+  mytree->Branch("HLTJets_Jvt", &m_on_hltjetjvtlist);
+  m_on_hltjetdl1dblist = new std::vector<float>();
+  mytree->Branch("HLTJets_DL1d20211216_pb", &m_on_hltjetdl1dblist);
+  m_on_hltjetdl1dclist = new std::vector<float>();
+  mytree->Branch("HLTJets_DL1d20211216_pc", &m_on_hltjetdl1dclist);
+  m_on_hltjetdl1dulist = new std::vector<float>();
+  mytree->Branch("HLTJets_DL1d20211216_pu", &m_on_hltjetdl1dulist);
+  m_on_hltjetGN1blist = new std::vector<float>();
+  mytree->Branch("HLTJets_GN1b", &m_on_hltjetGN1blist);
+  m_on_hltjetGN1clist = new std::vector<float>();
+  mytree->Branch("HLTJets_GN1c", &m_on_hltjetGN1clist);
+  m_on_hltjetGN1ulist = new std::vector<float>();
+  mytree->Branch("HLTJets_GN1u", &m_on_hltjetGN1ulist);
 
   m_noff_mtaus = new std::vector<int>(); 
   mytree->Branch("Noffline_Matched_Taus", &m_noff_mtaus);
@@ -267,6 +294,11 @@ StatusCode MyxAODAnalysis :: execute ()
     }
   }
 
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// TRIGGER DECISION //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //L1 
   L1_trig_pt = false; 
   L1_trig_eta = false; 
@@ -343,6 +375,99 @@ StatusCode MyxAODAnalysis :: execute ()
   } else {
     HLT_trig_etaidperf = true; 
   }
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// HLT jets and b tag info //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+const xAOD::JetContainer* hltjets = nullptr;
+CHECK( evtStore()->retrieve( hltjets , "HLT_AntiKt4EMPFlowJets_subresjesgscIS_ftf_bJets" ) );
+SG::AuxElement::ConstAccessor<ElementLink<xAOD::BTaggingContainer>> acc_btag_link("btaggingLink");
+SG::AuxElement::ConstAccessor<float> acc_hlt_pb("DL1d20211216_pb");
+SG::AuxElement::ConstAccessor<float> acc_hlt_pc("DL1d20211216_pc");
+SG::AuxElement::ConstAccessor<float> acc_hlt_pu("DL1d20211216_pu"); 
+SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pb("GN120220813_pb");
+SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pc("GN120220813_pc");
+SG::AuxElement::ConstAccessor<float> acc_hlt_gn1_pu("GN120220813_pu");
+
+//Here we work with Online HLT Jets
+ATH_MSG_DEBUG ("HLT jets: " << hltjets->size() << "...");
+m_non_hltJet->clear();
+m_on_hltjet->clear();
+m_on_hltjetjvtlist->clear();
+m_on_hltjetdl1dblist->clear();
+m_on_hltjetdl1dclist->clear();
+m_on_hltjetdl1dulist->clear();
+m_on_hltjetGN1blist->clear();
+m_on_hltjetGN1clist->clear();
+m_on_hltjetGN1ulist->clear();
+int countonJet = 0;
+
+for (auto hltjet : *hltjets) {
+  if (hltjet->pt() * 0.001 < 10.) continue; 
+
+  TLorentzVector onjetHLT; 
+  onjetHLT.SetPtEtaPhiM(hltjet->pt() * 0.001, hltjet->eta(), hltjet->phi(), 0);
+  m_on_hltjet->push_back(onjetHLT); //it contains the kinematic of the jet
+  m_on_hltjetjvtlist->push_back(hltjet->auxdata<float>("Jvt"));
+  ElementLink<xAOD::BTaggingContainer> btag = acc_btag_link(*hltjet);
+  m_on_hltjetdl1dblist->push_back(acc_hlt_pb(**btag));
+  m_on_hltjetdl1dclist->push_back(acc_hlt_pc(**btag));
+  m_on_hltjetdl1dulist->push_back(acc_hlt_pu(**btag));
+  m_on_hltjetGN1blist->push_back(acc_hlt_gn1_pb(**btag));
+  m_on_hltjetGN1clist->push_back(acc_hlt_gn1_pc(**btag));
+  m_on_hltjetGN1ulist->push_back(acc_hlt_gn1_pu(**btag));
+  countonJet ++;
+}
+
+//Outside Jet for loop do sorting (without truth matching)
+TLorentzVector on_hltjet;
+float on_jvt, on_dl1db, on_dl1dc, on_dl1du, on_gn1b, on_gn1c, on_gn1u;
+for ( int i =0 ; i < (int)m_on_hltjet->size() - 1; i++){
+  for (int j = i + 1; j < (int)m_on_hltjet->size(); j++){
+    if (m_on_hltjet->at(i).Pt()<m_on_hltjet->at(j).Pt()){
+      on_hltjet = m_on_hltjet->at(i);
+      m_on_hltjet->at(i) = m_on_hltjet->at(j);
+      m_on_hltjet->at(j) = on_hltjet; 
+
+      on_jvt = m_on_hltjetjvtlist->at(i);
+      m_on_hltjetjvtlist->at(i) = m_on_hltjetjvtlist->at(j);
+      m_on_hltjetjvtlist->at(j) = on_jvt;
+
+      on_dl1db = m_on_hltjetdl1dblist->at(i);
+      m_on_hltjetdl1dblist->at(i) = m_on_hltjetdl1dblist->at(j);
+      m_on_hltjetdl1dblist->at(j) = on_dl1db;
+
+      on_dl1dc = m_on_hltjetdl1dclist->at(i);
+      m_on_hltjetdl1dclist->at(i) = m_on_hltjetdl1dclist->at(j);
+      m_on_hltjetdl1dclist->at(j) = on_dl1dc;
+
+      on_dl1du = m_on_hltjetdl1dulist->at(i);
+      m_on_hltjetdl1dulist->at(i) = m_on_hltjetdl1dulist->at(j);
+      m_on_hltjetdl1dulist->at(j) = on_dl1du;
+
+      on_gn1b = m_on_hltjetGN1blist->at(i);
+      m_on_hltjetGN1blist->at(i) = m_on_hltjetGN1blist->at(j);
+      m_on_hltjetGN1blist->at(j) = on_gn1b;
+
+      on_gn1c = m_on_hltjetGN1clist->at(i);
+      m_on_hltjetGN1clist->at(i) = m_on_hltjetGN1clist->at(j);
+      m_on_hltjetGN1clist->at(j) = on_gn1c;
+
+      on_gn1u = m_on_hltjetGN1ulist->at(i);
+      m_on_hltjetGN1ulist->at(i) = m_on_hltjetGN1ulist->at(j);
+      m_on_hltjetGN1ulist->at(j) = on_gn1u;
+    }
+  }
+}
+m_non_hltJet->push_back(countonJet); 
+
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// L1Topo trigger matched taus //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
   
   //TrigDefs::includeFailedDecisions pT trigger
@@ -440,6 +565,12 @@ StatusCode MyxAODAnalysis :: execute ()
   
   m_non_HLTptfl->push_back(countonhltptfl);
   
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// 4J12 trigger matched taus //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //TrigDefs::includeFailedDecisions eta trigger
   auto veceta = m_trigDecTool->features<xAOD::TauJetContainer>(trigHLTetaidperf, TrigDefs::includeFailedDecisions ,tauContainerName); //TrigDefs::includeFailedDecisions TrigDefs::Physics
   //auto veceta = m_trigDecTool->features<xAOD::TauJetContainer>(trigHLTetaTau0, TrigDefs::Physics,tauContainerName); //TrigDefs::includeFailedDecisions TrigDefs::Physics
@@ -597,6 +728,12 @@ StatusCode MyxAODAnalysis :: execute ()
 
   m_non_TrigTRM->push_back(countonTRM); 
   
+
+
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Offline matched taus //
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
   //Offline Taus
   const xAOD::TauJetContainer* taus = nullptr; 
   ANA_CHECK (evtStore()->retrieve (taus, "TauJets"));
@@ -676,21 +813,6 @@ StatusCode MyxAODAnalysis :: execute ()
 
   m_noff_mtaus->push_back(countmoff);  
   
-  // Retrieve the eventInfo object from the event store
-  /*
-  const xAOD::EventInfo *eventInfo = nullptr;
-  ANA_CHECK (evtStore()->retrieve (eventInfo, "EventInfo"));
-
-  // print out run and event number from retrieved object
-  //ANA_MSG_INFO ("in execute, eventNumber = " << eventInfo->eventNumber() << ", actual bunch crossing = " << eventInfo->actualInteractionsPerCrossing() << "ave bunch crossing = " << eventInfo->averageInteractionsPerCrossing());
-
-  // Read/Fill EventInfo objects
-  m_actualBC->clear();
-  m_aveBC->clear();
-  m_eventNumber = eventInfo->eventNumber();
-  m_actualBC->push_back(eventInfo->actualInteractionsPerCrossing());
-  m_aveBC->push_back(eventInfo->averageInteractionsPerCrossing());
-  */
   // Fill the event into the tree:
   tree ("analysis")->Fill ();
   m_on_truthmHH->clear();

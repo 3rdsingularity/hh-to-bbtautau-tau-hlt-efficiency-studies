@@ -74,7 +74,7 @@ alg = CfgMgr.MyxAODAnalysis(
 athAlgSeq += alg
 
 # limit the number of events (for testing purposes)
-#theApp.EvtMax = 500
+theApp.EvtMax = 500
 
 # optional include for reducing printout from athena
 include("AthAnalysisBaseComps/SuppressLogging.py")
