@@ -53,7 +53,7 @@ sel_pass = len(sel_events)
 m1_thresholds = np.linspace(m1_current-0.02,m1_current+0.02,1)
 mm_thresholds = np.linspace(mm_current-0.02,mm_current+0.02,1)
 pt1 = np.linspace(20, 22, 1)
-pt0 = np.linspace(30, 40, 2)
+pt0 = np.linspace(30, 40, 10)
 
 ##############################################################
 

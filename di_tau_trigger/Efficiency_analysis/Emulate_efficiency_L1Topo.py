@@ -50,10 +50,10 @@ sel_pass = len(sel_events)
 ####### Customize your emulation parameter range here ########
 ##############################################################
 
-m1_thresholds = np.linspace(m1_current-0.02,m1_current+0.02,1)
-mm_thresholds = np.linspace(mm_current-0.02,mm_current+0.02,1)
-pt1 = np.linspace(20, 22, 1)
-pt0 = np.linspace(30, 40, 2)
+m1_thresholds = np.linspace(m1_current-0.02,m1_current+0.02,5)
+mm_thresholds = np.linspace(mm_current-0.02,mm_current+0.02,5)
+pt1 = np.linspace(20, 22, 5)
+pt0 = np.linspace(30, 40, 11)
 
 ##############################################################
 
