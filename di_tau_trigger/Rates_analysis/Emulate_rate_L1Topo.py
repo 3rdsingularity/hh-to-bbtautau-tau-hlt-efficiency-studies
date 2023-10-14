@@ -12,16 +12,16 @@ from Trigger_functions import *
 # PREPARING THE DATA #
 #########################################################################################################################################################
 
-branches_to_select = ['HLT_J25_idperf','TrigMatched_rnn_HLTptfl_perf', 'TrigMatched_prong_HLTptfl_perf', 'TrigMatched_Taus_HLTptfl_perf']
-
-
 print('Loading the root file...')
-# Your Enhnace bias NTUPLEs
-# rdf1 = ROOT.RDataFrame('analysis', "path/to/your/NTUPLES")
+
+
+branches_to_select = ['HLT_J25_idperf','TrigMatched_rnn_HLTptfl_perf', 'TrigMatched_prong_HLTptfl_perf', 'TrigMatched_Taus_HLTptfl_perf']
+# Your Enhnace bias NTuples
+# rdf = ROOT.RDataFrame('analysis', 'path/to/your/NTuples.root')
 rdf1 = ROOT.RDataFrame('analysis', "/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/user.asudhaka.RATES_ANALYSIS_rnnStudies_corrected.root_ANALYSIS/user.asudhaka.34132919.ANALYSIS._000001.root")
 
-# THe weights of your Enhanced Bias NTUPLEs
-# rdf2 = ROOT.RDataFrame('trig', "path/to/your/weights")
+# THe weights of your Enhanced Bias NTuples
+# rdf2 = ROOT.RDataFrame('trig', "path/to/your/weights.root")
 rdf2 = ROOT.RDataFrame('trig', "/afs/cern.ch/user/a/asudhaka/eos_space/tau_trigger/user.asudhaka.RATES_ANALYSIS_rnnStudies_corrected.root_ANALYSIS/user.asudhaka.34132919.ANALYSIS._000001.EBweights.root")
 
 # Convert the RDataFrame to a pandas DataFrame (Memory intensive !!! careful with the root file size)
