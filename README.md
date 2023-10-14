@@ -30,14 +30,18 @@ Please note that the selected sample should include a trigger chain within the t
 ## Processing AODs and Generating NTuples
 
 Given the complexity of AODs, this repository provides scripts for processing AODs into simpler NTuples. Two sets of scripts, located in `hlt_bbtautau_trigger_emulation/Process_EB_AODs` and `hlt_bbtautau_trigger_emulation/Process_MC_AODs`, are available for this purpose. These scripts draw inspiration from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies). Although the same script theoretically should process both signal and Enhanced Bias (EB) samples, two separate scripts are temporarily provided to process MC and EB AODs, due to some encountered issues.
+For the Enhanced Bias AOD, a weights.root file has to be generated for weighs corresponding to each event using the 
 
 ## Emulating Trigger Rates
 
 To perform trigger rate emulation and assess the rates of various triggers, use the scripts in `hlt_bbtautau_trigger_emulation/di_tau_trigger/Rates_analysis` and `hlt_bbtautau_trigger_emulation/b+tau_trigger/Rates_analysis`. These scripts leverage information from a [twiki page](https://studip-ecampus.uni-goettingen.de/dispatch.php/course/details?sem_id=ca1ca2a43d94d8262654e401f8c61553&again=yes) authored by Heather Russell.
 
-All the function that has got to do with the trigger emulation is provided in the Trigger_fucntuins
+In this project, you can find all the functions required for trigger emulation conveniently located in the *Trigger_functions.py* file. 
+
+To perform rate and efficiency emulation for various trigger chains, you can use the dedicated scripts named *Emulate_\*_\*.py*. 
+
 
 
 
 ## Project Status
-The current status of the project is ongoing, with continuous development and refinement of trigger emulation and analysis tools. Please refer to the repository for the latest updates and developments.
+The current status of the project is ongoing, with continuous development and refinement of trigger emulation and analysis tools for the $b+\tau$ triggers. Please refer to the repository for the latest updates and developments.
