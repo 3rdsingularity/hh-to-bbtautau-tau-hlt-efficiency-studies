@@ -1,41 +1,43 @@
 # HLT_bbtautau_trigger_emulation
 
-## Description
-This repository is created for the trigger optimization studies of the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis. For optimizing a trigger chain, it is important to look at its efficiency and the rates. This repository can be used to emulate various trigger chain configurations and determine the corresponding efficiency and rates.
+## Overview
+This repository is dedicated to the optimization studies of the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis triggers. The primary goal of this repository is to facilitate the emulation of various trigger chain configurations and evaluate their corresponding efficiency and rates. Trigger optimization is essential to ensure that the chosen trigger chains effectively select the desired events while managing data rates.
 
-As of now, all the important HLT parameters of the di tau trigger - L1Topo and 4J12, i.e 
+As of the current version, the repository supports the emulation of crucial High-Level Trigger (HLT) parameters. All the parameters of the di tau trigger :
 
-HLT_tau35_mediumRNN_tracktwoMVA_tau25_mediumRNN_tracktwoMVA_03dRAB30_L1DRTAU20ITAU12I-J25
-and 
-HLT_tau35_mediumRNN_tracktwoMVA_tau25_mediumRNN_tracktwoMVA_03dRAB_L1TAU20IM_-2TAU12IM_4J12p0ETA25
+- HLT_tau35_mediumRNN_tracktwoMVA_tau25_mediumRNN_tracktwoMVA_03dRAB30_L1DRTAU20ITAU12I-J25
+- HLT_tau35_mediumRNN_tracktwoMVA_tau25_mediumRNN_tracktwoMVA_03dRAB_L1TAU20IM_-2TAU12IM_4J12p0ETA25
 
-can be emulated without any issues. 
+can be accurately emulated without issues.
 
-## Recommended Samples
+## Recommended Sample Data
 
- For efficiency emulation, the Monte Carlo sample of the signal sammple is used. For rates emulation, an [Enhanced Bias Samples](https://twiki.cern.ch/twiki/bin/view/Atlas/EnhancedBiasData) and their weights are required.  
+For efficient emulation, the Monte Carlo sample of the signal is recommended. For rate emulation, you will require Enhanced Bias Samples along with their corresponding weights. These are essential to accurately assess the performance of the trigger chains.
 
- - For efficiency emulation of any trigger chain in the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis, the following sample was used at the time of creating this repository
-```mc23_13p6TeV.601477.PhPy8EG_HHbbttHadHad_cHHH01d0.recon.AOD.e8514_s4111_r14668/ ```
+- For efficiency emulation of any trigger chain within the $hh \rightarrow \bar{b} b \tau_{had}^+ \tau_{had}^-$ analysis, the following sample was used during the creation of this repository: 
+```mc23_13p6TeV.601477.PhPy8EG_HHbbttHadHad_cHHH01d0.recon.AOD.e8514_s4111_r14668/```
 
-- For the di tau trigger rate emulation, the following Enhanced Bias sample was used at the time of creating this repository ([ATR-27517](https://its.cern.ch/jira/browse/ATR-27517))
-. 
+- To emulate the rate of the di-tau trigger, the following Enhanced Bias sample was employed at the time of creating this repository, as documented in [ATR-27517](https://its.cern.ch/jira/browse/ATR-27517):
+
 ```data22_13p6TeV:data22_13p6TeV.00440499.physics_EnhancedBias.recon.AOD.r14669_r14670_tid33426406_00```
 
-    For which the weights are at
- ```/afs/cern.ch/work/a/aporeba/public TrigCostRootAnalysis/EnhancedBiasWeights_440499.xml ``` 
+The corresponding weights can be found at:
+```/afs/cern.ch/work/a/aporeba/public/TrigCostRootAnalysis/EnhancedBiasWeights_440499.xml```
 
-(It is important to note that the chosen sample has a trigger chain in the trigger menu with a chain looser than the loosest chain being emulated.)
-
-## Process the AODs and derive NTuples
-
-Since AODs are difficult to handle, they are processed to simple NTuples using the scripts in 
-```hlt_bbtautau_trigger_emulation/Process_EB_AODs``` and ```hlt_bbtautau_trigger_emulation/Process_MC_AODs```. These are AOD processers inspired from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies)
-In theory, the same script should be able to process both signal and EB samples. But since I encountered some issues with using the script for MC NTupler to process EB AODs, two separate scripts are present temporarily to process MC and ED AODs.
+Please note that the selected sample should include a trigger chain within the trigger menu that is looser than the loosest chain being emulated.
 
 
-## Emulating the Rate
-Use the ```hlt_bbtautau_trigger_emulation/di_tau_trigger/Rates_analysis``` and ```hlt_bbtautau_trigger_emulation/b+tau_trigger/Rates_analysis``` for emulating various triggers and determining its rates. The rates are calulated using the information provided in the [twiki page](https://studip-ecampus.uni-goettingen.de/dispatch.php/course/details?sem_id=ca1ca2a43d94d8262654e401f8c61553&again=yes) written by Heather Russell.  
+## Processing AODs and Generating NTuples
+
+Given the complexity of AODs, this repository provides scripts for processing AODs into simpler NTuples. Two sets of scripts, located in `hlt_bbtautau_trigger_emulation/Process_EB_AODs` and `hlt_bbtautau_trigger_emulation/Process_MC_AODs`, are available for this purpose. These scripts draw inspiration from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies). Although the same script theoretically should process both signal and Enhanced Bias (EB) samples, two separate scripts are temporarily provided to process MC and EB AODs, due to some encountered issues.
+
+## Emulating Trigger Rates
+
+To perform trigger rate emulation and assess the rates of various triggers, use the scripts in `hlt_bbtautau_trigger_emulation/di_tau_trigger/Rates_analysis` and `hlt_bbtautau_trigger_emulation/b+tau_trigger/Rates_analysis`. These scripts leverage information from a [twiki page](https://studip-ecampus.uni-goettingen.de/dispatch.php/course/details?sem_id=ca1ca2a43d94d8262654e401f8c61553&again=yes) authored by Heather Russell.
+
+All the function that has got to do with the trigger emulation is provided in the Trigger_fucntuins
 
 
-## Project status
+
+## Project Status
+The current status of the project is ongoing, with continuous development and refinement of trigger emulation and analysis tools. Please refer to the repository for the latest updates and developments.
