@@ -1,7 +1,7 @@
 
 #########################################################################################################################################################    
 
-def is_mRNN(event,tau,branch='TrigMatched_rnn_HLTptfl',m0=0.35,m1=0.03,mm=0.105):
+def is_mRNN(df,event,tau,branch='TrigMatched_rnn_HLTptfl',m0=0.35,m1=0.03,mm=0.105):
     ''' Checks if a tau in an event passes the medium RNN cut
         :param event: int
         :param tau: int
@@ -43,7 +43,7 @@ def is_mRNN(event,tau,branch='TrigMatched_rnn_HLTptfl',m0=0.35,m1=0.03,mm=0.105)
         
 #########################################################################################################################################################    
 
-def is_lRNN(event,tau,branch='TrigMatched_rnn_HLTptfl',l0=0.1,l1=0.01,lm=0.06):
+def is_lRNN(df,event,tau,branch='TrigMatched_rnn_HLTptfl',l0=0.1,l1=0.01,lm=0.06):
     ''' Checks if a tau in an event passes the loose RNN cut
         :param event: int
         :param tau: int
@@ -85,7 +85,7 @@ def is_lRNN(event,tau,branch='TrigMatched_rnn_HLTptfl',l0=0.1,l1=0.01,lm=0.06):
         
 #########################################################################################################################################################    
 
-def selection_cond(event):
+def selection_cond(df,event):
     ''' Checks if an event passes the selection cut (a reasonable selection condition agreed by the bbtautau trigger analysis group)
         :param event: int
         :return: bool 
@@ -93,7 +93,7 @@ def selection_cond(event):
     #atleast 2 offline taus
     if len(df['Offline_Matched_Taus'][event])>=2:
         #Must pass RNN loose
-        if is_lRNN(event,0,branch='Off_Matched_TauRNN') and is_lRNN(event,1,branch='Off_Matched_TauRNN'):
+        if is_lRNN(df,event,0,branch='Off_Matched_TauRNN') and is_lRNN(df,event,1,branch='Off_Matched_TauRNN'):
             #Must have tau1_pt >20 and tau2_pt>12
             if df['Offline_Matched_Taus'][event][0].Pt()>20 and df['Offline_Matched_Taus'][event][1].Pt()>12:
                 return True
@@ -102,7 +102,7 @@ def selection_cond(event):
 
 #########################################################################################################################################################    
 
-def pt_cond(event,index,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'): #"index" is index of the tau of concern, i is the index of the tau pair
+def pt_cond(df,event,index,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'): #"index" is index of the tau of concern, i is the index of the tau pair
     ''' Checks for a particular tau if it can be paired up with the second tau and pass the pt cut
         :param event: int 
         :param index: int (index of the tau to be checked)
@@ -122,7 +122,7 @@ def pt_cond(event,index,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'): #"index" i
 
 #########################################################################################################################################################    
 
-def mRNN_L1Topo_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06):
+def mRNN_L1Topo_cond(df,event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06):
     ''' Checks for a particular tau if it can be paired up with the second tau and pass the medium RNN cut for the L1Topo Trigger
         :param event: int 
         :param index: int (index of the tau to be checked)
@@ -138,12 +138,12 @@ def mRNN_L1Topo_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0
         :return: bool
     '''
     # For tau[index] RNN Medium(Loose) if pt < m_RNN(no_RNN) | no RNN ID if pt > no_RNN GeV
-    RNN1_cond = (is_mRNN(event,index,m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() < m_RNN)
-    RNN1_cond |= (is_lRNN(event,index,l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() < no_RNN) 
+    RNN1_cond = (is_mRNN(df,event,index,m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() < m_RNN)
+    RNN1_cond |= (is_lRNN(df,event,index,l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTptfl'][event][index].Pt() < no_RNN) 
     RNN1_cond |= df['TrigMatched_Taus_HLTptfl'][event][index].Pt() > no_RNN
     # For tau[i] RNN Medium(Loose) if pt < m_RNN(no_RNN) | no RNN ID if pt > no_RNN GeV
-    RNN2_cond = (is_mRNN(event,i,m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() < m_RNN) 
-    RNN2_cond |= (is_lRNN(event,i,l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() < no_RNN)
+    RNN2_cond = (is_mRNN(df,event,i,m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() < m_RNN) 
+    RNN2_cond |= (is_lRNN(df,event,i,l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTptfl'][event][i].Pt() < no_RNN)
     RNN2_cond |= df['TrigMatched_Taus_HLTptfl'][event][i].Pt() > no_RNN
     if RNN1_cond and RNN2_cond:
         return  True
@@ -151,7 +151,7 @@ def mRNN_L1Topo_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0
         return False
 
 
-def DR_L1Topo_cond(event,index,i,min_DR = 0.3, max_DR = 3):
+def DR_L1Topo_cond(df,event,index,i,min_DR = 0.3, max_DR = 3):
     ''' Checks for a particular tau if it can be paired up with the second tau and pass the angular separation cut for the L1Topo trigger
         :event: int 
         :index: int (index of the tau to be checked)
@@ -169,7 +169,7 @@ def DR_L1Topo_cond(event,index,i,min_DR = 0.3, max_DR = 3):
 
 
    
-def HLT_L1Topo_cond(event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06, min_DR =0.3,max_DR =3):
+def HLT_L1Topo_cond(df,event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06, min_DR =0.3,max_DR =3):
     '''Checks if the L1Topo trigger condition is satisfied for a specific tau in an event 
         :event: int 
         :tau_i: int (index of the tau to be checked)
@@ -193,22 +193,22 @@ def HLT_L1Topo_cond(event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,
         #Checking if tau_i has a pair that satidsfies the hltpt condition by looping over all taus 
         for i in range(len(df['TrigMatched_Taus_HLTptfl'][event])):
             #Checking the pt condtion for tau_i and tau[i]  
-            if pt_cond(event,tau_i,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'):
+            if pt_cond(df,event,tau_i,i,pt0,pt1,branch='TrigMatched_Taus_HLTptfl'):
                 if ptflag ==0:
                     ptflag =1
                 #Checking the medium RNN condition for tau_i and tau[i]
-                if mRNN_L1Topo_cond(event,tau_i,i,no_RNN,m_RNN,m0=m0,m1=m1,mm=mm,l0=l0,l1=l1,lm=lm):
+                if mRNN_L1Topo_cond(df,event,tau_i,i,no_RNN,m_RNN,m0=m0,m1=m1,mm=mm,l0=l0,l1=l1,lm=lm):
                     if RNN_flag == 0:
                         RNN_flag =1
                     #Checking the DeltaR condtion for tau_i and tau[i]
-                    if DR_L1Topo_cond(event,tau_i,i,min_DR,max_DR):
+                    if DR_L1Topo_cond(df,event,tau_i,i,min_DR,max_DR):
                         return True
                         break
         return False
 
 #########################################################################################################################################################    
 
-def mRNN_4J12_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06 ):
+def mRNN_4J12_cond(df,event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06 ):
     ''' Checks for a particular tau if it can be paired up with the second tau and pass the medium RNN cut for the 4J12 trigger
         :param event: int 
         :param index: int (index of the tau to be checked)
@@ -224,12 +224,12 @@ def mRNN_4J12_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.1
         :return: bool
     '''
     # For tau[index] RNN Medium(Loose) if pt < m_RNN(no_RNN) | no RNN ID if pt > no_RNN GeV
-    RNN1_cond = (is_mRNN(event,index,branch ='TrigMatched_rnn_HLTetafl',m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() < m_RNN)
-    RNN1_cond |= (is_lRNN(event,index,branch ='TrigMatched_rnn_HLTetafl',l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() < no_RNN) 
+    RNN1_cond = (is_mRNN(df,event,index,branch ='TrigMatched_rnn_HLTetafl',m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() < m_RNN)
+    RNN1_cond |= (is_lRNN(df,event,index,branch ='TrigMatched_rnn_HLTetafl',l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTetafl'][event][index].Pt() < no_RNN) 
     RNN1_cond |= df['TrigMatched_Taus_HLTetafl'][event][index].Pt() > no_RNN
     # For tau[i] RNN Medium(Loose) if pt < m_RNN(no_RNN) | no RNN ID if pt > no_RNN GeV
-    RNN2_cond = (is_mRNN(event,i,branch ='TrigMatched_rnn_HLTetafl',m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() < m_RNN) 
-    RNN2_cond |= (is_lRNN(event,i,branch ='TrigMatched_rnn_HLTetafl',l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() < no_RNN)
+    RNN2_cond = (is_mRNN(df,event,i,branch ='TrigMatched_rnn_HLTetafl',m0=m0,m1=m1,mm=mm)) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() < m_RNN) 
+    RNN2_cond |= (is_lRNN(df,event,i,branch ='TrigMatched_rnn_HLTetafl',l0=l0,l1=l1,lm=lm)) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() > m_RNN) and (df['TrigMatched_Taus_HLTetafl'][event][i].Pt() < no_RNN)
     RNN2_cond |= df['TrigMatched_Taus_HLTetafl'][event][i].Pt() > no_RNN
     if RNN1_cond and RNN2_cond:
         return  True
@@ -237,7 +237,7 @@ def mRNN_4J12_cond(event,index,i, no_RNN = 440, m_RNN=280,m0=0.35,m1=0.03,mm=0.1
         return False
 
 
-def DR_4J12_cond(event,index,i,min_DR = 0.3):
+def DR_4J12_cond(df,event,index,i,min_DR = 0.3):
     ''' Checks for a particular tau if it can be paired up with the second tau and pass the angular separation cut for the 4J12 trigger
         :event: int 
         :index: int (index of the tau to be checked)
@@ -253,7 +253,7 @@ def DR_4J12_cond(event,index,i,min_DR = 0.3):
     
  
     
-def HLT_4J12_cond(event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06, min_DR =0.3):
+def HLT_4J12_cond(df,event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,m1=0.03,mm=0.105,l0=0.1,l1=0.01,lm=0.06, min_DR =0.3):
     '''Checks if the 4J12 trigger condition is satisfied for a specific tau in an event 
         :param event: int 
         :param tau_i: int (index of the tau to be checked)
@@ -276,15 +276,15 @@ def HLT_4J12_cond(event,tau_i,pt0=30,pt1=20, no_RNN = 440, m_RNN =280,m0=0.35,m1
         #Checking if tau_i has a pair that satidsfies the hltpt condition by looping over all taus 
         for i in range(len(df['TrigMatched_Taus_HLTetafl'][event])):
             #Checking the pt condtion for tau_i and tau[i]  
-            if pt_cond(event,tau_i,i,pt0,pt1,branch='TrigMatched_Taus_HLTetafl'):
+            if pt_cond(df,event,tau_i,i,pt0,pt1,branch='TrigMatched_Taus_HLTetafl'):
                 if ptflag ==0:
                     ptflag =1
                 #Checking the medium RNN condition for tau_i and tau[i]
-                if mRNN_4J12_cond(event,tau_i,i,no_RNN,m_RNN,m0=m0,m1=m1,mm=mm,l0=l0,l1=l1,lm=lm):
+                if mRNN_4J12_cond(df,event,tau_i,i,no_RNN,m_RNN,m0=m0,m1=m1,mm=mm,l0=l0,l1=l1,lm=lm):
                     if RNN_flag == 0:
                         RNN_flag =1
                     #Checking the DeltaR condtion for tau_i and tau[i]
-                    if DR_4J12_cond(event,tau_i,i,min_DR):
+                    if DR_4J12_cond(df,event,tau_i,i,min_DR):
                         return True
                         break
         return False

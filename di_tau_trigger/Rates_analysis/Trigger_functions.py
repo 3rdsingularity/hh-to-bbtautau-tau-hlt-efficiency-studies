@@ -81,23 +81,7 @@ def is_lRNN(df,event,tau,branch='TrigMatched_rnn_HLTptfl_perf',l0=0.1,l1=0.01,lm
             return df[branch][event][tau]>l1
         if df['TrigMatched_prong_HLTetafl_perf'][event][tau]>=2:
             return df[branch][event][tau]>lm
-        
-#########################################################################################################################################################         
 
-def selection_cond(df,event):
-    ''' Checks if an event passes the selection cut (a reasonable selection condition agreed by the bbtautau trigger analysis group)
-        :param event: int
-        :return: bool 
-    '''    
-    #atleast 2 offline taus
-    if len(df['Offline_Matched_Taus'][event])>=2:
-        #Must pass RNN loose
-        if is_lRNN(event,0,branch='Off_Matched_TauRNN') and is_lRNN(event,1,branch='Off_Matched_TauRNN'):
-            #Must have tau1_pt >20 and tau2_pt>12
-            if df['Offline_Matched_Taus'][event][0].Pt()>20 and df['Offline_Matched_Taus'][event][1].Pt()>12:
-                return True
-    else:
-        return False
 
 #########################################################################################################################################################    
 
