@@ -12,7 +12,7 @@ from Trigger_functions import *
 # PREPARING THE DATA #
 #########################################################################################################################################################
 
-branches_to_select = ['HLT_J25_idperf','HLT_4J12_idperf','TrigMatched_rnn_HLTptfl_perf', 'TrigMatched_prong_HLTptfl_perf', 'Off_Matched_TauRNN','Off_Matched_TauProng','TrigMatched_rnn_HLTetafl_perf','TrigMatched_prong_HLTetafl_perf','Offline_Matched_Taus','TrigMatched_Taus_HLTptfl_perf','TrigMatched_Taus_HLTetafl_perf']
+branches_to_select = ['HLT_4J12_idperf','TrigMatched_rnn_HLTetafl_perf','TrigMatched_prong_HLTetafl_perf','TrigMatched_Taus_HLTetafl_perf']
 
 
 print('Loading the root file...')
@@ -61,15 +61,20 @@ Err_Rate_HLT_4J12_idperf = 12.6041 # Hz
 
 # Rate_emu = N_event_passed_emu * Rate_std_chain / N_event_passed_std
 
-#########################################################################################################################################################
-# EMULATION #
-#########################################################################################################################################################
+##############################################################
+####### Customize your emulation parameter range here ########
+##############################################################
 
-# Parameter array for trigger emulation
 m1_thresholds = np.linspace(m1_current-0.02,m1_current+0.02,5)
 mm_thresholds = np.linspace(mm_current-0.02,mm_current+0.02,5)
 pt1 = np.linspace(20, 22, 5)
 pt0 = np.linspace(30, 40, 11)
+
+##############################################################
+
+#########################################################################################################################################################
+# EMULATION #
+#########################################################################################################################################################
 
 # Total trigger combinations to be emulated
 t_combo = len(mm_thresholds) * len(m1_thresholds) * len(pt0) * len(pt1)
@@ -90,7 +95,7 @@ with open('4J12_Rates_Emulation.csv', 'w', newline='') as csvfile:
                         hlt_event_wt_err = 0
                         print(f'{count} combination(s) completed of {t_combo} |   Previous rate: {rate} Hz   |   Current combination =>  m1:{np.round(m1, 4)},mm:{np.round(mm, 4)},pt1:{pti}, pt2:{ptj}',end='', flush=True)
                         for event in range(df.shape[0]):
-                            if df['HLT_J25_idperf'][event]:
+                            if df['HLT_4J12_idperf'][event]:
                                 hlt_flag = 0
                                 for tau_i in range(len(df['TrigMatched_Taus_HLTetafl_perf'][event])):
                                     if HLT_4J12_cond(df,event, tau_i, pt0=pti, pt1=ptj, m1=m1, mm=mm) and hlt_flag == 0:
