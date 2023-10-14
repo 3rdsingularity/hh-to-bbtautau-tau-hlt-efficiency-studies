@@ -30,7 +30,7 @@ Please note that the selected sample should include a trigger chain within the t
 ## Processing AODs and Generating NTuples
 
 Given the complexity of AODs, this repository provides scripts for processing AODs into simpler NTuples. Two sets of scripts, located in `hlt_bbtautau_trigger_emulation/Process_EB_AODs` and `hlt_bbtautau_trigger_emulation/Process_MC_AODs`, are available for this purpose. These scripts draw inspiration from [Jem's tau trigger analysis script](https://gitlab.cern.ch/jguhit/bbtautautriggeranalysis/-/tree/HLT_studies). Although the same script theoretically should process both signal and Enhanced Bias (EB) samples, two separate scripts are temporarily provided to process MC and EB AODs, due to some encountered issues.
-For the Enhanced Bias AOD, a weights.root file has to be generated for weighs corresponding to each event using the 
+For the Enhanced Bias AOD, a weights.root file has to be generated for weighs corresponding to each event using the *makefriends.py* in ```hlt_bbtautau_trigger_emulation/Process_EB_AODs/makefriends.py``` (Credits to Heather Russell). You may have to change the path of the weights.xml file and the NTuples.root to get it running. 
 
 ## Emulating Trigger Rates
 
