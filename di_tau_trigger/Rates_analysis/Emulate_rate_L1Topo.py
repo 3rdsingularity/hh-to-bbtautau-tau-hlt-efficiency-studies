@@ -12,7 +12,7 @@ from Trigger_functions import *
 # PREPARING THE DATA #
 #########################################################################################################################################################
 
-branches_to_select = ['HLT_J25_idperf','HLT_4J12_idperf','TrigMatched_rnn_HLTptfl_perf', 'TrigMatched_prong_HLTptfl_perf', 'Off_Matched_TauRNN','Off_Matched_TauProng','TrigMatched_rnn_HLTetafl_perf','TrigMatched_prong_HLTetafl_perf','Offline_Matched_Taus','TrigMatched_Taus_HLTptfl_perf','TrigMatched_Taus_HLTetafl_perf']
+branches_to_select = ['HLT_J25_idperf','TrigMatched_rnn_HLTptfl_perf', 'TrigMatched_prong_HLTptfl_perf', 'TrigMatched_Taus_HLTptfl_perf']
 
 
 print('Loading the root file...')
